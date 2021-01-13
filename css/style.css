@@ -1,0 +1,254 @@
+
+.container
+{
+	margin-top:-10px;
+	width:0 auto;
+}
+/*================Page Enseignant==================*/
+.block-des-onglets
+{
+	width: 880px;
+	height:0 auto;
+	float: left;
+	margin-left: 320px;
+	margin-top:-365px;
+}
+.block-de-progression
+{
+	width: 300px;
+	height:0 auto;
+	margin-top: 30px;
+	border-radius: 8px;
+	float: left;
+	/*border: 1px solid black;*/
+}
+.descriprionMatiere
+{
+	padding: 0px 0px 0px 0px;
+	float: right;
+}
+.nav-tabs
+{
+	height: 50px;
+}
+
+/*================/Page Enseignant================*/
+/*================Page Profil=====================*/
+.profil
+{
+	width:0 auto;
+	height:0 auto;
+	
+}
+.profil .row
+{
+	width:0 auto;
+	margin-left: 20px;
+	/*border: 1px solid black;*/
+}
+.glyphicon 
+{  
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+.btn
+{
+	height: 35px;
+}
+.progression
+{
+	height:0 auto;
+	width:0 auto;
+}
+.titre
+{
+	width: 500px;
+	height: 50px;
+	margin-left: 100px;
+	/*border: 1px solid black;*/
+}
+.modifier-profil
+{
+	width:0 auto;
+	height:0 auto;
+}
+/*================/Page Profil=====================*/
+/*================Page Coordonnateur====================*/
+
+/*================/Page Coordonnateur====================*/
+/*================ Admin====================*/
+.creer-compte
+{
+	width:0 auto;
+	height:0 auto;
+	border-radius: 8px;
+	background-color: #B6C4CE;
+	margin-top:150px;
+	margin-left:450px; 
+	margin-right: 180px;
+}
+.etablissement 
+{
+	background-color: #B6C4CE;
+	width: 900px;
+	margin-left: 500px; 
+	margin-top: 100px;
+	padding-right: 50px;
+	padding-top:50px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+ 	border-radius: 8px;
+}
+.suivi
+{
+	background-color: #B6C4CE;
+	width: 1000px;
+	margin-left: 430px; 
+	margin-top: 180px;
+	padding-right: 50px;
+	padding-top:50px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+ 	border-radius: 8px;
+ 	float: left;
+}
+
+.login
+{
+	margin-top: 150px;
+}
+.Etat
+{
+	width: 200px;
+}
+.Etat-Pourcentage
+{
+	padding-top: 20px;
+
+}
+#add-user
+{
+	margin-left: 335px;
+}
+.Acceuil
+{
+	padding-left: 400px;
+	margin-top: 20px;
+}
+.container .recherche
+{
+	width:900px;
+	height:0 auto;
+	margin-top: 20px;
+	margin-left: 110px;
+	float: left;
+}
+.resultat-recherche
+{
+	width:900px;
+	height:0 auto;
+	margin-left: 110px;
+}
+.semestre
+{
+	float: left;
+}
+.recherche-suivi
+{
+	width:900px;
+	height:0 auto;
+	margin-top: 40px;
+	margin-left: 230px;
+	float: left;
+}
+.resultat-suivi
+{
+	width:900px;
+	height:0 auto;
+	margin-left: 230px;
+}
+#easypiechart-blue .percent { color: #30a5ff;}
+#easypiechart-teal .percent { color: #1ebfae;}
+#easypiechart-orange .percent { color: #ffb53e;}
+#easypiechart-red .percent { color: #ef4040;}
+#easypiechart-green .percent { color: green;}
+.easypiechart .percent {
+	display: block;
+	position: absolute;
+	font-size: 26px;
+	top: 38px;
+	width: 120px;
+}
+.easypiechart {
+	position: relative;
+	text-align: center;
+	width: 120px;
+	height: 120px;
+	margin: 20px auto 10px auto;
+}
+.indicateur
+{
+	float: left;
+	width: 380px;
+	height: 250px;
+	border-radius: 8px;
+	padding:0px 0px 0px 0px;
+	/*background-color: #30a5ff;*/
+}
+.download
+{
+	width: 100px;
+}
+#lancer-recherche
+{
+	margin-top: 20px;
+	margin-left:230px;
+}
+.acceder
+{
+	margin-right: 20px;
+	float:right;
+}
+.modifier
+{
+	float: right;
+}
+.btn-modifier
+{
+	margin-left: 70px;
+}
+.acceder
+{
+	margin-right: 20px;
+	float:right;
+}
+
+#imaginary_container{
+    margin-top:20%; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+#area-chart,
+#line-chart,
+#bar-chart,
+#stacked,
+#pie-chart{
+	min-height: 250px;
+}
