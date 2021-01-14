@@ -18,17 +18,20 @@ $Etat = $_SESSION['NIV'];
   $req  = ($bd->query('Select PRENOM_COR_FIL,NOM_COR_FIL ,SPCIALITE_COR_FIL from coordonateur_filiere WHERE CODE_COR_FIL="'.$rest.'"'));
   $req2 = ($bd->query('select U.NOM_UNIVERSITE , E.NOM_ETA from coordonateur_filiere as C  , etablissement as E  , universite as U where  C.CODE_COR_FIL="' . $rest . '" and C.CODE_ETA= E.CODE_ETA and E.CODE_UNIVERSITE = U.CODE_UNIVERSITE ;'));
   $req3 = ($bd->query('select U.NOM_UNIVERSITE,E.NOM_ETA from coordonateur_filiere as C  , etablissement as E  , universite as U where  C.CODE_COR_FIL="' . $rest . '" and C.CODE_ETA= E.CODE_ETA and E.CODE_UNIVERSITE = U.CODE_UNIVERSITE ;'));
-  $req4 = ($bd->query('Select  count(CODE_FIL)as Nombre_Fil from filiere WHERE  CODE_COR_FIL  ="'.$rest.'" and Statut_fil=1'));
-  $req5 = ($bd->prepare('Select NOM_FIL from filiere WHERE CODE_COR_FIL  ="'.$rest.'" and Statut_fil=1'));
-  $req10 = ($bd->prepare('Select ETAT from filiere WHERE CODE_COR_FIL  ="'.$rest.'" and Statut_fil=1'));
-  $req6 = ($bd->prepare('Select CODE_FIL from filiere WHERE CODE_COR_FIL  ="'.$rest.'" and Statut_fil=1'));
-  $req9 = ($bd->prepare('SELECT avancement FROM filiere WHERE CODE_COR_FIL="'.$rest.'" and Statut_fil=1 '));
+  $req4 = ($bd->query('Select  count(CODE_FIL)as Nombre_Fil from filiere WHERE  CODE_COR_FIL  ="'.$rest.'"'));
+  $req5 = ($bd->prepare('Select NOM_FIL from filiere WHERE CODE_COR_FIL  ="'.$rest.'"'));
+  $req10 = ($bd->prepare('Select ETAT from filiere WHERE CODE_COR_FIL  ="'.$rest.'"'));
+  $req6 = ($bd->prepare('Select CODE_FIL from filiere WHERE CODE_COR_FIL  ="'.$rest.'"'));
+  $req9 = ($bd->prepare('SELECT avancement FROM filiere WHERE CODE_COR_FIL="'.$rest.'" '));
+  $req12 = ($bd->prepare('SELECT Statut_fil FROM filiere WHERE CODE_COR_FIL="'.$rest.'" '));
   $ress = $req->fetch();
   $ress1= $req4->fetch();
   $req5->execute();
   $req10->execute();
   $req6->execute();
   $req9->execute();
+  $req12->execute();
+  $ress12= $req12->fetch();
   $ress3=$req6->fetchAll();
   $ress9=$req9->fetchAll();
   $ress2  =  $req5->fetchAll();
@@ -37,6 +40,7 @@ $Etat = $_SESSION['NIV'];
   $nom    = $ress['NOM_COR_FIL'];
   $sep    = $ress['SPCIALITE_COR_FIL'];
   $nb     = $ress1['Nombre_Fil'];
+  $Statut_fil     = $ress12['Statut_fil'];
   $nb     = $nb-1;
 
   if(isset($_POST['submit']))
@@ -56,9 +60,14 @@ $Etat = $_SESSION['NIV'];
     $req6->execute();
       $ress3=$req6->fetchAll();
     $idf = implode($ress3[$id]);
+
+    $Statut_filF;
+    if($Statut_fil == 0)
+        $Statut_filf=1;
+    else
+        $Statut_filf=0;
     
-    
-    $sql = "UPDATE `filiere` SET `Statut_fil`=0 WHERE `CODE_FIL`='$idf'"; 
+    $sql = "UPDATE `filiere` SET `Statut_fil`='$Statut_filf' WHERE `CODE_FIL`='$idf'";
     if (mysqli_query($ma_connexion, $sql)) {
     } else {
       echo "Error updating record: " . mysqli_error($ma_connexion);
@@ -487,24 +496,27 @@ header('Location:../login/login.php');
                         Filière '.$j.' : '.$NomF.'-'.$ETAT_fil.'
                       </a>
                       <br>
-                      <br>
-                      <span class="pull-left">&nbsp;&nbsp;Etat d\'avancement  en % :</span>
+                      <br>';if($Statut_fil == '1'){
+                '<span class="pull-left">&nbsp;&nbsp;Etat d\'avancement  en % :</span>';
+                     }echo '
                     </h4>
                     <div class="panel-default pull-right">
-                    <form method="POST" action="">
+                    <form method="POST" action="">';
+                      if($Statut_fil == '1'){ echo '
                   <button type="submit"  name="submit" class="btn btn-success"><span class="glyphicon glyphicon-arrow-up">&nbsp;Accéder</span></button>
                   <button type="button" name="partager" class="btn btn-info " id="mod'.$i.'" value='.$i.' onClick="afficher(this)"><span class="glyphicon glyphicon-file">&nbsp;Reporting</span></button>
-                  <button type="button" name="partag_NEW" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="moddk'.$i.'" value='.$i.' onClick="afficher1(this)"><span class="glyphicon glyphicon-share">&nbsp;Partager</span></button>
-                  <button type="submit" name="Masquer" class="btn btn-danger"><span class="glyphicon glyphicon-eye-close">&nbsp;Masquer</span></button>
+                  <button type="button" name="partag_NEW" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="moddk'.$i.'" value='.$i.' onClick="afficher1(this)"><span class="glyphicon glyphicon-share">&nbsp;Partager</span></button>'; };echo '
+                  <button type="submit" name="Masquer" class="btn btn-danger"><span class="glyphicon glyphicon-eye-close">';if($Statut_fil == '1'){echo '&nbsp;Masquer';}else{echo '&nbsp;DeMasquer';} echo '</span></button>
                     <input type="text" name="id" value='.$i.' hidden>
                     </form>
                 </div>
-                  </div>
+                  </div>';
+            if($Statut_fil == '1'){ echo '
                   <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="box-body">
                       <input class="knob" id="kuy'.$i.'" data-width="200" data-min="0" data-displayPrevious=true value="'.$avanc.'/'.implode($ress3[$i]).'">
                     </div>
-                  </div>
+                  </div>';}echo '
                 </div>
               </div>
             </div>';
