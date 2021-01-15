@@ -950,6 +950,7 @@ font-size: 16px;"> Derniere connexion : 30 Mars 2017 &nbsp; <input type="submit"
     <script src="assets/js/morris/morris.js"></script>
 		  <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/jquery.dataTables.min.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
         <script>
             $(document).ready(function () {
