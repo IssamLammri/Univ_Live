@@ -22,7 +22,32 @@ include '../connexion.php';
       while($row = mysqli_fetch_assoc($query))
       {
 		$mod_Split_AVANC[]= $row['NOM_MODU'] .'::'. $row['avancement'].'::'. $row['VOLUME_HORAIRE_MODU']; 	
-      } 
+      }
+
+    $reqq=($bd->query('select count(Mo.CODE_MODU) as nbModu from module Mo , filiere Fil where Fil.CODE_FIL=Mo.CODE_FIL AND Fil.CODE_FIL="'.$idf.'" '));
+    $ress = $reqq->fetch();
+    $Nb_Module=$ress['nbModu'];
+    $Nb_Module=$Nb_Module;
+
+    $reqq1=($bd->query('SELECT count(`CODE_MAT`) as nbMat FROM `matiere` ma,module mo,filiere f WHERE f.CODE_FIL=mo.CODE_FIL and mo.CODE_MODU = ma.CODE_MODU and f.CODE_FIL = "'.$idf.'" '));
+    $ress1 = $reqq1->fetch();
+    $Nb_Matiere=$ress1['nbMat'];
+    $Nb_Matiere=$Nb_Matiere;
+
+    $reqq2=($bd->query('SELECT count(`CODE_ENS`) as nbEns FROM intervient inter, matiere ma , module mo,filiere f WHERE f.CODE_FIL=mo.CODE_FIL and mo.CODE_MODU = ma.CODE_MODU and inter.CODE_MAT = ma.CODE_MAT and f.CODE_FIL = "'.$idf.'" '));
+    $ress2 = $reqq2->fetch();
+    $nbEns=$ress2['nbEns'];
+
+
+    $reqq3=($bd->query('SELECT count(DISTINCT(mo.CODE_COR_MODU)) as CordFil FROM module mo,filiere f,coordonateur_module cm WHERE mo.CODE_COR_MODU=cm.CODE_COR_MODU and mo.CODE_FIL = f.CODE_FIL AND f.CODE_FIL ="'.$idf.'" '));
+    $ress3 = $reqq3->fetch();
+    $nbCoodFili=$ress3['CordFil'];
+
+
+    $reqq4=($bd->query('SELECT count(*) as Comp FROM `compfiliere` WHERE `CODE_FIL` = "'.$idf.'"  '));
+    $ress4 = $reqq4->fetch();
+    $CompFil=$ress4['Comp'];
+
 	  
 	 // print_r($mod_Split_AVANC) ;  
 	 
@@ -95,42 +120,32 @@ include '../connexion.php';
 					 <!-- //agile_top_w3_grids-->
 						<!-- /agile_top_w3_post_sections-->
 							<div class="agile_top_w3_post_sections">
-							       <div class="col-md-6 agile_top_w3_post agile_info_shadow">
+							       <div class="col-md-12 agile_top_w3_post agile_info_shadow">
 										   <div class="img_wthee_post">
 										         <h3 class="w3_inner_tittle">Reporting</h3>
 												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count">30 </h4><span class="year">Enseignants</span></div>
-													<div class="year-info"><p class="text-no">16 </p><span class="year">Modules</span></div>
+													<div class="count_info"><h4 class="count"><?php  echo $nbEns  ;?></h4><span class="year">Enseignants</span></div>
+													<div class="year-info"><p class="text-no"><?php  echo $Nb_Module  ;?> </p><span class="year">Modules</span></div>
 													<div class="clearfix"></div>
 												</div>
 												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count">15 </h4><span class="year">Coordonateur modules </span></div>
-													<div class="year-info"><p class="text-no">40 </p><span class="year">Matieres</span></div>
+													<div class="count_info"><h4 class="count"><?php  echo $nbCoodFili  ;?>  </h4><span class="year">Coordonateur modules </span></div>
+													<div class="year-info"><p class="text-no"><?php  echo $Nb_Matiere  ;?></p><span class="year">Matieres</span></div>
 													<div class="clearfix"></div>
 												</div>
 												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count">16 </h4><span class="year">Collaborateurs</span></div>
-													<div class="year-info"><p class="text-no">30 </p><span class="year">competances</span></div>
+													<div class="count_info"><h4 class="count">2 </h4><span class="year">Collaborateurs</span></div>
+													<div class="year-info"><p class="text-no"><?php  echo $CompFil  ;?></p><span class="year">competances</span></div>
 													<div class="clearfix"></div>
 												</div>
 												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count">59</h4><span class="year">Total intervenants</span></div>
-													<div class="year-info"><p class="text-no">10 </p><span class="year">validation</span></div>
+													<div class="count_info"><h4 class="count"><?php  echo $nbEns+$nbCoodFili+2  ;?></h4><span class="year">Total intervenants</span></div>
+													<div class="year-info"><p class="text-no">12/20</p><span class="year">validation</span></div>
 													<div class="clearfix"></div>
 												</div>
 											  
 											</div>
 									   </div>
-									    <div class="col-md-6 agile_top_w3_post_info agile_info_shadow">
-										    <div class="img_wthee_post1">
-											<h3 class="w3_inner_tittle"> Flip Clock</h3>
-										       	<div class="main-example">
-													<div class="clock"></div>
-													<div class="message"></div>
-
-												</div>
-											</div>
-							            </div>
 								       <div class="clearfix"></div>
 							     </div>
 								   
@@ -442,206 +457,7 @@ include '../connexion.php';
 								
 						</div>
 						<!-- /w3ls_agile_circle_progress-->
-						 <!--/prograc-blocks_agileits-->
-							<div class="prograc-blocks_agileits">
-								
-								
-								 <div class="col-md-6 bars_agileits agile_info_shadow">
-								  <h3 class="w3_inner_tittle two">Progression par semestre </h3>
-								
-								  
-										
-								</div>
-								<div class="col-md-6 fallowers_agile agile_info_shadow">
-									<h3 class="w3_inner_tittle two">Recent Followers</h3>
-												<div class="work-progres">
-													<div class="table-responsive">
-														<table class="table table-hover">
-														  <thead>
-															<tr>
-															  <th>#</th>
-															  <th>Project</th>
-															  <th>Manager</th>                                   
-																								
-															  <th>Status</th>
-															  <th>Progress</th>
-														  </tr>
-													  </thead>
-													  <tbody>
-														<tr>
-														  <td>1</td>
-														  <td>Face book</td>
-														  <td>Malorum</td>                                 
-																					 
-														  <td><span class="label label-danger">in progress</span></td>
-														  <td><span class="badge badge-info">50%</span></td>
-													  </tr>
-													  <tr>
-														  <td>2</td>
-														  <td>Twitter</td>
-														  <td>Evan</td>                               
-																						  
-														  <td><span class="label label-success">completed</span></td>
-														  <td><span class="badge badge-success">100%</span></td>
-													  </tr>
-													  <tr>
-														  <td>3</td>
-														  <td>Google</td>
-														  <td>John</td>                                
-														  
-														  <td><span class="label label-warning">in progress</span></td>
-														  <td><span class="badge badge-warning">75%</span></td>
-													  </tr>
-													  <tr>
-														  <td>4</td>
-														  <td>LinkedIn</td>
-														  <td>Danial</td>                                 
-																					 
-														  <td><span class="label label-info">in progress</span></td>
-														  <td><span class="badge badge-info">65%</span></td>
-													  </tr>
-													  <tr>
-														  <td>5</td>
-														  <td>Tumblr</td>
-														  <td>David</td>                                
-																						 
-														  <td><span class="label label-warning">in progress</span></td>
-														  <td><span class="badge badge-danger">95%</span></td>
-													  </tr>
-													  <tr>
-														  <td>6</td>
-														  <td>Tesla</td>
-														  <td>Mickey</td>                                  
-																					 
-														  <td><span class="label label-info">in progress</span></td>
-														  <td><span class="badge badge-success">95%</span></td>
-													  </tr>
-												  </tbody>
-											  </table>
-											</div>
-										</div>											
-								</div>
-									 <div class="clearfix"></div>
-							</div>
 
-							  <!--//prograc-blocks_agileits-->
-						<!-- /bottom_agileits_grids-->
-						<div class="bottom_agileits_grids">
-						<div class="col-md-4 profile-main">
-						    <div class="profile_bg_agile">
-								<div class="profile-pic wthree">
-									<h2>Bason Durel</h2>
-									<img src="images/profile.jpg" alt="Image">
-									<p>Web Designer</p>
-								</div>
-								<div class="profile-ser">
-										<div class="follow-grids-agileits-w3layouts">
-											<div class="profile-ser-grids">
-												<h3>Followers</h3>
-												<h4>2486</h4>
-											</div>
-											<div class="profile-ser-grids agileinfo">
-												<h3>Following</h3>
-												<h4>1582</h4>
-											</div>
-											<div class="profile-ser-grids no-border">
-												<h3>Tweets</h3>
-												<h4>1468</h4>
-											</div>
-											<div class="clearfix"> </div>
-										</div>
-										<div class="w3l_social_icons w3l_social_icons1">
-											<ul>
-												<li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-												<li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-												<li><a href="#" class="google_plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-											</ul>
-										</div>
-
-						        </div>
-								</div>
-					        </div>
-							<div class="col-md-8 chart_agile agile_info_shadow">
-							 <h3 class="w3_inner_tittle two">Stacked Bar Chart</h3>
-							    <div id="chartdiv1"></div>	
-							</div>
-											
-						
-							 <div class="clearfix"></div>
-						</div>
-						<!-- //bottom_agileits_grids-->
-												<!-- /weather_w3_agile_info-->
-						<div class="weather_w3_agile_info agile_info_shadow">
-						  <div class="weather_w3_inner_info">
-						      
-							     <div class="over_lay_agile">
-								  <h3 class="w3_inner_tittle">Weather Report</h3>
-						       	  <ul>
-									<li>
-										<figure class="icons">
-											<canvas id="partly-cloudy-day" width="60" height="60"></canvas>
-										</figure>
-										<h3>25 °C</h3>
-										<div class="clearfix"></div>
-									</li>
-									<li>
-										<figure class="icons">
-											<canvas id="clear-day" width="60" height="60"></canvas>
-										</figure>
-										<div class="weather-text">
-											<h4>WED</h4>
-											<h5>27 °C</h5>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-									<li>
-										<figure class="icons">
-											<canvas id="snow" width="60" height="60"></canvas>
-										</figure>
-										<div class="weather-text">
-											<h4>THU</h4>
-											<h5>13 °C</h5>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-									<li>
-										<figure class="icons">
-											<canvas id="partly-cloudy-night" width="60" height="60"></canvas>
-										</figure>
-										<div class="weather-text">
-											<h4>FRI</h4>
-											<h5>18 °C</h5>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-									<li>
-										<figure class="icons">
-											<canvas id="cloudy" width="60" height="60"></canvas>
-										</figure>
-										<div class="weather-text">
-											<h4>SAT</h4>
-											<h5>15 °C</h5>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-									<li>
-										<figure class="icons">
-											<canvas id="fog" width="60" height="60"></canvas>
-										</figure>
-										<div class="weather-text">
-											<h4>SUN</h4>
-											<h5>11 °C</h5>
-										</div>
-										<div class="clearfix"></div>
-									</li>
-								</ul>
-								</div>
-							</div>	
-						</div>
-						<!-- //weather_w3_agile_info-->
-						<!-- /social_media-->
-						 
-						<!-- //social_media-->
 				    </div>
 					<!-- //inner_content_w3_agile_info-->
 				</div>
@@ -706,9 +522,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "categoryField": "country",
     "categoryAxis": {
         "gridPosition": "start",
-        "axisAlpha":0,
-        "gridAlpha":0
-
+        "labelRotation": 45
     },
     "export": {
     	"enabled": true
