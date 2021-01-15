@@ -609,23 +609,23 @@ $SQL="select d.NOM_DEPT , d.CODE_DEPT , e.CODE_ETA , e.NOM_ETA , u.CODE_UNIVERSI
 																Liste des mots clés
 															</h3>
 															<p>
-																<?php
-														$query = " SELECT mc.NOM_MOTCLE , mc.CODE_MOTCLE 
-														FROM filiere_motCles fo , mot_cle mc  
-														WHERE fo.CODE_MOTCLE = mc.CODE_MOTCLE
-														AND fo.CODE_FIL = '$idf' ";
-														$result = mysqli_query($ma_connexion, $query); 
-												   
-												   
-													   while(($row = mysqli_fetch_array($result)) == true )  
-														{ 										
-															
-															$name = $row['NOM_MOTCLE'] ;
-															$code = $row['CODE_MOTCLE'] ;
-															echo "<span id='mocletxt$code'> $name , </span> ";
-															 
-														}
-														?>
+        																<?php
+                														$query = " SELECT mc.NOM_MOTCLE , mc.CODE_MOTCLE 
+                														FROM filiere_motCles fo , mot_cle mc  
+                														WHERE fo.CODE_MOTCLE = mc.CODE_MOTCLE
+                														AND fo.CODE_FIL = '$idf' ";
+                														$result = mysqli_query($ma_connexion, $query); 
+                												   
+                												   
+                													   while(($row = mysqli_fetch_array($result)) == true )  
+                														{ 										
+                															
+                															$name = $row['NOM_MOTCLE'] ;
+                															$code = $row['CODE_MOTCLE'] ;
+                															echo "<span id='mocletxt$code'> $name , </span> ";
+                															 
+                														}
+        														    ?>
 															</p>
 														</div>
 													</div>
@@ -643,24 +643,21 @@ $SQL="select d.NOM_DEPT , d.CODE_DEPT , e.CODE_ETA , e.NOM_ETA , u.CODE_UNIVERSI
 	                        <label for="mot_cle" class="col-sm-3 control-label">Ajouter des mots clés </label>
 	                            <div class="col-sm-6">
 	                            	<select class="form-control js-example-tags" id="motcle" readonly="readonly" name="motcle[]" multiple style="width:100%;">
-														<?php
-														$query = " SELECT NOM_MOTCLE 
-														FROM  mot_cle 
-														where CODE_MOTCLE NOT IN (
-														SELECT  `CODE_MOTCLE` FROM `filiere_motcles` WHERE `CODE_FIL` = '$idf')
-														 ";
-														$result = mysqli_query($ma_connexion, $query); 
-													   while(($row = mysqli_fetch_array($result)) == true )  
-														{ 										
-															
-															$name = $row['NOM_MOTCLE'] ;
-															echo ' <option value="'.$name.'">'.$name.'</option>' ;
-															 
-														}
-														?>
+        														<?php
+              														$query = " SELECT NOM_MOTCLE 
+              														FROM  mot_cle 
+              														where CODE_MOTCLE NOT IN (
+              														SELECT  `CODE_MOTCLE` FROM `filiere_motcles` WHERE `CODE_FIL` = '$idf')
+              														 ";
+              														$result = mysqli_query($ma_connexion, $query); 
+              													   while(($row = mysqli_fetch_array($result)) == true )  
+              														{ 										
+              															$name = $row['NOM_MOTCLE'] ;
+              															echo ' <option value="'.$name.'">'.$name.'</option>' ;	 
+              														}
+        														?>
 														 
-													
-												  </select>	
+												       </select>	
 												  <script src="../js/select2.min.js"></script>
 												
 												  <script>
@@ -2396,6 +2393,7 @@ $SQL="select d.NOM_DEPT , d.CODE_DEPT , e.CODE_ETA , e.NOM_ETA , u.CODE_UNIVERSI
 					option_selectedd=option_selectedd+" "+$(this).val();
 					
 					$("#mocletxt"+$(this).val()).remove();
+          window.location.reload();
 				}
 			});
 			
@@ -2412,21 +2410,12 @@ $SQL="select d.NOM_DEPT , d.CODE_DEPT , e.CODE_ETA , e.NOM_ETA , u.CODE_UNIVERSI
 							'SUPPRIMER!',
 							'LES MOT CLES SELECTIONNEES ONT  BIEN ETES SUPPRIMEES.',
 							'success'
-						  )
-						  
-						  
-						  
+						  )  
 					 
 					}
 					
-					
-					
-					
-				
-					
-					
 				});
-		   }
+		  }
 		   
 		   
 		   
@@ -2465,19 +2454,19 @@ $SQL="select d.NOM_DEPT , d.CODE_DEPT , e.CODE_ETA , e.NOM_ETA , u.CODE_UNIVERSI
 							<label>Secteur d'activité </label>
 							<select class="form-control" name='lesDomaineNEWTEXT' id="lesDomaineNEWTEXT"> 
 								<option value='0' style="font-weight: bold;" SELECTED disabled  > Secteur d'activité </option>
-							<?php 
-														
-									$SQL="select CODE_SECTEUR,NOM_SECTEUR from secteur_activite;";
-									$query=mysqli_query($ma_connexion,$SQL);
-									while($row=mysqli_fetch_assoc($query))
-									{	
-											$codeDEB = $row['CODE_SECTEUR'];
-											$libelleDEB = $row['NOM_SECTEUR'];
 
-											echo "<option value='$codeDEB'>$libelleDEB</option> " ; 
-									}
+      							    <?php 			
+          									$SQL="select CODE_SECTEUR,NOM_SECTEUR from secteur_activite;";
+          									$query=mysqli_query($ma_connexion,$SQL);
+          									while($row=mysqli_fetch_assoc($query))
+          									{	
+          											$codeDEB = $row['CODE_SECTEUR'];
+          											$libelleDEB = $row['NOM_SECTEUR'];
 
-									?> 
+          											echo "<option value='$codeDEB'>$libelleDEB</option> " ; 
+          									}
+      									?> 
+
 							</select> 
 						
 						</div>
@@ -4926,6 +4915,7 @@ $(document).ready(function() {
 						success: function(html)
 						{
 							$("#supprimermotcleList").html(html);
+              // window.location.reload();
 						}
 					});
 					
