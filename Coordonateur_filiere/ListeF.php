@@ -116,7 +116,7 @@ header('Location: ../login/login.php');
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/raphael-min.js"></script>
 	<script src="../js/morris.min.js"></script>
-	
+    <script src="../js/sweetalert2.min.js"></script>
 	<script src="../js/jquery-ui.js"></script>
 	
 	<script src="../js/amcharts.js" type="text/javascript"></script>
